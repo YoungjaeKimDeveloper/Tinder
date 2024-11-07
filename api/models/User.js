@@ -51,7 +51,14 @@ const userShema = new mongoose.Schema({
   ],
 });
 
-userShema.methods.matches = async (enteredPassword) => {
+// Question
+userShema.pre("save", async function (next) {
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
+// Function 을 사용하지않으면 this binding 을 할수없게됨
+// ADD THE. .method keywords to create own schema methods
+userShema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
