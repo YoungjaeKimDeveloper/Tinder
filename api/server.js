@@ -8,6 +8,7 @@ import authRoutes from "./routes/authRoutes.js";
 import usersRoutes from "./routes/usersRoutes.js";
 import matchesRoutes from "./routes/matchesRoutes.js";
 import messageRoutes from "./routes/messagesRoutes.js";
+
 dotenv.config();
 
 const app = express();
@@ -17,9 +18,9 @@ app.use(express.json());
 app.use(cookieParser());
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/users", matchesRoutes);
-app.use("/api/matches", messageRoutes);
-app.use("/api/messages", usersRoutes);
+app.use("/api/users", usersRoutes);
+app.use("/api/matches", matchesRoutes);
+app.use("/api/messages", messageRoutes);
 
 app.listen(PORT, () => {
   connectDB();

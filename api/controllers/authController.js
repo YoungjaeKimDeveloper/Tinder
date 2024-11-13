@@ -53,6 +53,7 @@ export const signup = async (req, res) => {
     res.status(500).json({ success: false, message: "SERVER ERROR" });
   }
 };
+
 // LOG IN CONTROLLER
 export const login = async (req, res) => {
   // USERI INPUT DATA
