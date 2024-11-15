@@ -7,7 +7,7 @@ const signToken = (id) => {
 };
 
 export const signup = async (req, res) => {
-  // USER INPUT DATA
+  // 사용자가 입력한값
   const { name, email, password, age, gender, genderPreference } = req.body;
 
   try {
@@ -37,7 +37,7 @@ export const signup = async (req, res) => {
       gender,
       genderPreference,
     });
-    // Check the Token
+    // Create the Token for login
     const token = signToken(newUser._id);
 
     // WHAT IS THE COOIKE?

@@ -8,8 +8,8 @@ import {
 } from "../controllers/matchController.js";
 const router = express.Router();
 
-router.post("/swipte-right/:likeUserId", protectRoute, swipeRight);
-router.post("/swipte-left/:dislikeUserId", protectRoute, swipeLeft);
+router.post("/swipte-right/:likedUserId", protectRoute, swipeRight);
+router.post("/swipte-left/:dislikedUserId", protectRoute, swipeLeft);
 
 router.get("/", protectRoute, getMatches);
 router.get("/user-profiles", protectRoute, getUserProfiles);

@@ -4,6 +4,7 @@ import UserMmodel from "../models/User.js";
 export const protectRoute = async (req, res, next) => {
   try {
     const token = req.cookie.jwt;
+    // When there is no Token
     if (!token) {
       return res.status(401).json({
         success: false,
@@ -12,14 +13,14 @@ export const protectRoute = async (req, res, next) => {
     }
     // Since we used the secert JWT toekn we need to use the JWT Token to verify.
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
+    // When there is no decoded token
     if (!decoded) {
       return res.status(401).json({
         success: false,
         message: "Not authorized - Invalid token",
       });
     }
-
+    // Find the current User with decode information
     const currentUser = await UserMmodel.findById(decoded.id);
 
     req.user = currentUser;
