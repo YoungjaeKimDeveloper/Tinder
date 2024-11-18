@@ -4,6 +4,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const loading = false;
+  
   return (
     <form className="flex flex-col justify-start">
       <label htmlFor="email" className="pl-1">

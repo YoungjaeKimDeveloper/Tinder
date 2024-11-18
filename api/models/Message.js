@@ -5,7 +5,9 @@ import mongoose from "mongoose";
 // sender = type objectid ref user, required
 // receiver = type objectid , ref user,
 // content -> type string, required
-// 씨발 이 자체가 그냥 TABLE인겨
+
+// Model = SQL TABLE
+// ref = Refer the foreign key from other table
 const messageSchema = new mongoose.Schema(
   {
     sender: {

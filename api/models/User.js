@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
-const userShema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -32,6 +32,7 @@ const userShema = new mongoose.Schema(
     },
     bio: { type: String, default: "" },
     image: { type: String, default: "" },
+    // After use creates the profiels and they add additional options
     likes: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -55,16 +56,16 @@ const userShema = new mongoose.Schema(
 );
 
 // Question
-userShema.pre("save", async function (next) {
+userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, 10);
   next();
 });
 // Function 을 사용하지않으면 this binding 을 할수없게됨
 // ADD THE. .method keywords to create own schema methods
-userShema.methods.matchPassword = async function (enteredPassword) {
+userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-const UserMmodel = mongoose.model("User", userShema);
+const UserModel = mongoose.model("User", userSchema);
 
-export default UserMmodel;
+export default UserModel;

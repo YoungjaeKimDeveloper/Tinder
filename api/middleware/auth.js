@@ -1,9 +1,10 @@
 import jwt from "jsonwebtoken";
-import UserMmodel from "../models/User.js";
+import UserModel from "../models/User.js";
 
 export const protectRoute = async (req, res, next) => {
   try {
-    const token = req.cookie.jwt;
+    const token = req.cookies.jwt;
+    console.log(token, "Token has been submitted");
     // When there is no Token
     if (!token) {
       return res.status(401).json({
@@ -21,7 +22,7 @@ export const protectRoute = async (req, res, next) => {
       });
     }
     // Find the current User with decode information
-    const currentUser = await UserMmodel.findById(decoded.id);
+    const currentUser = await UserModel.findById(decoded.id);
 
     req.user = currentUser;
     next();

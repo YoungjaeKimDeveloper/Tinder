@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import SignupForm from "../components/SignupForm";
 import LoginForm from "../components/LoginForm";
+import { useAuthStore } from "../store/useAuthStore";
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-red-500 to-pink-500 p-4">
       <div className="w-full max-w-md">

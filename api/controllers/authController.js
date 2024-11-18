@@ -1,4 +1,4 @@
-import UserMmodel from "../models/User.js";
+import UserModel from "../models/User.js";
 import jwt from "jsonwebtoken";
 // SIGN UP LOGIC
 const signToken = (id) => {
@@ -29,7 +29,7 @@ export const signup = async (req, res) => {
       });
     }
     // Create User
-    const newUser = await UserMmodel.create({
+    const newUser = await UserModel.create({
       name,
       email,
       password,
@@ -42,9 +42,9 @@ export const signup = async (req, res) => {
 
     // WHAT IS THE COOIKE?
     res.cookie("jwt", token, {
-      maxAge: "7 * 24 * 60 * 60 * 1000", // 7days in milliseconds
+      maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true, // prevents XSS Attack
-      same: "strict", // prevents CSRF attacks
+      sameSite: "strict", // prevents CSRF attacks
       secure: process.env.NODE_ENV == "production",
     });
     res.status(201).json({ success: true, user: newUser });
@@ -66,7 +66,7 @@ export const login = async (req, res) => {
         .message({ success: false, messsage: "WRITE email and password" });
     }
     // Q. What is the select
-    const user = await UserMmodel.findOne({ email }).select("+password");
+    const user = await UserModel.findOne({ email }).select("+password");
     // FAILED LOGIN
     if (!user || !(await user.matchPassword(password))) {
       return res
