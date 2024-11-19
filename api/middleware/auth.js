@@ -3,7 +3,7 @@ import UserModel from "../models/User.js";
 
 export const protectRoute = async (req, res, next) => {
   try {
-    const token = req.cookies.jwt;
+    const token = req.s.jwt;
     console.log(token, "Token has been submitted");
     // When there is no Token
     if (!token) {

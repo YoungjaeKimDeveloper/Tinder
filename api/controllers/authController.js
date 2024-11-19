@@ -77,7 +77,7 @@ export const login = async (req, res) => {
     const token = signToken(user._id);
 
     res.cookie("jwt", token, {
-      maxAge: "7 * 24 * 60 * 60 * 1000", // 7days in milliseconds
+      maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true, // prevents XSS Attack
       same: "strict", // prevents CSRF attacks
       secure: process.env.NODE_ENV == "production",
