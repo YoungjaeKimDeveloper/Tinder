@@ -1,12 +1,20 @@
 import React, { useState } from "react";
+import { useAuthStore } from "../store/useAuthStore";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const loading = false;
-  
+
+  const { login, loading } = useAuthStore();
+
   return (
-    <form className="flex flex-col justify-start">
+    <form
+      className="flex flex-col justify-start"
+      onSubmit={(e) => {
+        e.preventDefault();
+        login({ email, password });
+      }}
+    >
       <label htmlFor="email" className="pl-1">
         Email Address
       </label>

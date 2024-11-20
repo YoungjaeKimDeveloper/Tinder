@@ -19,13 +19,41 @@ export const useAuthStore = create((set) => ({
       set({ loading: false });
     }
   },
+  login: async (LoginData) => {
+    try {
+      const res = await axiosInstance.post("/auth/login", LoginData);
+      if (res.status == 200) {
+        toast.success("LOGIN SUCCESSFULLY");
+        set({ authUser: res.data.user });
+      }
+    } catch (error) {
+      toast.error(error.response.data.message || "Something went wrong");
+      set({ authUser: null });
+    } finally {
+      set({ loading: false });
+    }
+  },
+  logout: async () => {
+    try {
+      const res = await axiosInstance.post("/auth/logout");
+      if (res.status === 200) {
+        toast.success("You have loggedOut Successfully");
+        set({ authUser: null });
+      }
+    } catch (error) {
+      toast.error(error.response.data.message || "Something went wrong");
+    }
+  },
 
   checkAuth: async () => {
     try {
       const res = await axiosInstance.get("/auth/me");
-      console.log(res.data);
+      set({ authUser: res.data.user });
     } catch (error) {
       console.log(error);
+      set({ authUser: null });
+    } finally {
+      set({ checkingAuth: false });
     }
   },
 }));
